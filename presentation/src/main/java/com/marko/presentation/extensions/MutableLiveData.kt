@@ -5,7 +5,7 @@ import com.marko.presentation.result.Result
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-suspend fun <T> MutableLiveData<Result<T>>.unsafeWithContext(
+suspend fun <T> MutableLiveData<Result<T>>.safeWithContext(
 	context: CoroutineContext,
 	f: suspend () -> T
 ) {

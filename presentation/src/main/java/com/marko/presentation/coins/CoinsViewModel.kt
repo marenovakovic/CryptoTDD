@@ -8,7 +8,7 @@ import com.marko.domain.usecase.invoke
 import com.marko.presentation.base.BaseViewModel
 import com.marko.presentation.entities.Coin
 import com.marko.presentation.extensions.actorConsumeEach
-import com.marko.presentation.extensions.unsafeWithContext
+import com.marko.presentation.extensions.safeWithContext
 import com.marko.presentation.mappers.toPresentation
 import com.marko.presentation.result.Result
 import kotlinx.coroutines.channels.actor
@@ -40,7 +40,7 @@ class CoinsViewModel @Inject constructor(
 	private val actor = actorConsumeEach<CoinAction> { action ->
 		when (action) {
 			is FetchCoins ->
-				_result.unsafeWithContext(dispatchers.io) { getCoins().map { it.toPresentation() } }
+				_result.safeWithContext(dispatchers.io) { getCoins().map { it.toPresentation() } }
 		}
 	}
 
