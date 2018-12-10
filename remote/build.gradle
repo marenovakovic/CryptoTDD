@@ -1,0 +1,41 @@
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
+
+dependencies {
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+
+    // Gson
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    // Kotlin Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
+
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpLoggingInterceptorVersion"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutineAdapterVersion"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    implementation project(path: ":data")
+    implementation project(path: ":domain")
+
+    // Testing
+    testImplementation "junit:junit:$jUnitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnit5Version"
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+}

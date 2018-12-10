@@ -1,0 +1,29 @@
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
+
+dependencies {
+
+    // JavaX Inject
+    implementation "javax.inject:javax.inject:$javaxInjectVersion"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    // Kotlin Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    // Testing
+    testImplementation "junit:junit:$jUnitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnit5Version"
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+}

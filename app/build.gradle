@@ -1,0 +1,108 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
+
+android {
+    useLibrary 'android.test.runner'
+
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
+
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.marko.cryptotdd"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "com.marko.cryptotdd.runner.CryptoTestRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerCompilerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerAndroidProcessorVersion"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutinesVersion"
+
+    // KTX
+    implementation "androidx.core:core-ktx:$ktxVersion"
+
+    //    implementation "androidx.fragment:fragment-ktx:$ktxVersion"
+
+    // Legacy Support
+    implementation "androidx.legacy:legacy-support-v4:$legacySupportVersion"
+
+    // Material
+    implementation "com.google.android.material:material:$materialVersion"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation project(path: ':presentation')
+    implementation project(path: ':preferences')
+    implementation project(path: ':cache')
+    implementation project(path: ':remote')
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+
+    // Testing
+    testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
+    testImplementation "junit:junit:$jUnitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnit5Version"
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    androidTestImplementation "io.mockk:mockk-android:$mockkVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.test:rules:$testRulesVersion"
+
+    // Assertions
+    androidTestImplementation "androidx.test.ext:junit:$testExtVersion"
+    androidTestImplementation "androidx.test.ext:truth:$testExtVersion"
+    androidTestImplementation "com.google.truth:truth:$googleTruthVersion"
+
+    // Core library
+    androidTestImplementation "androidx.test:core:$testCoreVersion"
+
+    // Dagger
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerCompilerVersion"
+
+    // Espresso
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+}

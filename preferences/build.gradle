@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions.unitTests.includeAndroidResources = true
+}
+
+dependencies {
+
+    // Annotations
+    implementation "com.android.support:support-annotations:$annotationsVersion"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    // KTX
+    implementation "androidx.core:core-ktx:$ktxVersion"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    /// Testing
+    testImplementation "junit:junit:$jUnitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnit5Version"
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "androidx.test:core:$testCoreVersion"
+    androidTestImplementation "androidx.test:rules:$testRulesVersion"
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.test.ext:truth:$testExtTruthVersion"
+    androidTestImplementation "androidx.test.ext:junit:$testExtJUnitVersion"
+}

@@ -1,0 +1,57 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions.unitTests.includeAndroidResources = true
+}
+
+dependencies {
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
+
+    // KTX
+    implementation "androidx.core:core-ktx:$ktxVersion"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    implementation project(path: ":preferences")
+    implementation project(path: ":data")
+    implementation project(path: ":domain")
+
+    // Testing
+    testImplementation "junit:junit:$jUnitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnit5Version"
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "androidx.room:room-testing:$roomVersion"
+    testImplementation "androidx.test:core:$testCoreVersion"
+    testImplementation "androidx.arch.core:core-testing:$archCoreTestingVersion"
+}
