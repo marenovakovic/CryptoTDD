@@ -3,6 +3,7 @@ package com.marko.data.coins
 import com.marko.data.entities.CoinData
 import com.marko.domain.entities.CoinId
 import com.marko.domain.injection.DI
+import com.marko.domain.time.now
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
@@ -27,7 +28,10 @@ class CoinsDataSourceMediator @Inject constructor(
 	 */
 	suspend fun getCoins(): List<CoinData> =
 		if (coinsCacheDataSource.isCacheValid) coinsCacheDataSource.getCoins()
-		else coinsRemoteDataSource.getCoins()
+		else coinsRemoteDataSource.getCoins().also {
+			coinsCacheDataSource.saveCoins(it)
+			coinsCacheDataSource.lastCacheTime = now
+		}
 
 	/**
 	 * Returns [CoinData] details from [CoinsDataSource] after determining which [CoinsDataSource] should be called

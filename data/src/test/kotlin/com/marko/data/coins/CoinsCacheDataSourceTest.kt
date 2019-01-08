@@ -2,10 +2,8 @@ package com.marko.data.coins
 
 import com.marko.data.entities.CoinData
 import com.marko.data.factory.CoinsDataFactory
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.every
-import io.mockk.mockk
+import com.marko.domain.time.now
+import io.mockk.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.jupiter.api.TestInstance
@@ -19,11 +17,30 @@ internal class CoinsCacheDataSourceTest {
 	@Test
 	fun `does cache data source isCacheValid calls repository`() {
 		stubIsCacheValid(true)
+
 		coinsCacheDataSource.isCacheValid
+
+		verify(exactly = 1) { coinsCacheRepository.isCacheValid }
 	}
 
 	@Test
-	fun `does cache data source getCoins calls repository`() = runBlocking<Unit> {
+	fun `does cache data source lastCacheTime delegates to repository`() {
+		val lastCacheTime = now
+		stubLastCacheTime(lastCacheTime)
+
+
+		assert(coinsCacheDataSource.lastCacheTime == lastCacheTime)
+
+		val newCacheTime = now
+
+		coinsCacheRepository.lastCacheTime = newCacheTime
+
+		verify(exactly = 1) { coinsCacheRepository.lastCacheTime }
+		verify(exactly = 1) { coinsCacheRepository.lastCacheTime = newCacheTime }
+	}
+
+	@Test
+	fun `does cache data source getCoins calls repository`() = runBlocking {
 		val coins = CoinsDataFactory.coinDatas
 		stubCoins(coins)
 
@@ -43,7 +60,7 @@ internal class CoinsCacheDataSourceTest {
 	}
 
 	@Test
-	fun `does cache data source getCoin calls repository`() = runBlocking<Unit> {
+	fun `does cache data source getCoin calls repository`() = runBlocking {
 		val coin = CoinsDataFactory.coinData
 		stubCoin(coin)
 
@@ -90,6 +107,11 @@ internal class CoinsCacheDataSourceTest {
 
 	private fun stubIsCacheValid(isCacheValid: Boolean) {
 		every { coinsCacheRepository.isCacheValid } returns isCacheValid
+	}
+
+	private fun stubLastCacheTime(lastCacheTime: Long) {
+		every { coinsCacheRepository.lastCacheTime } returns lastCacheTime
+		every { coinsCacheRepository.lastCacheTime = any() } returns Unit
 	}
 
 	private fun stubCoins(coins: List<CoinData>) = runBlocking {

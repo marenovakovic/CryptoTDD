@@ -16,14 +16,25 @@ private const val HOUR = 60 * MINUTE
 private const val DAY = 24 * HOUR
 const val TEN_DAYS = 10 * DAY
 
+/**
+ * Cache layer access point
+ *
+ * @param database [CoinsDatabase]
+ *
+ * @param preferences [PreferencesStorage]
+ */
 @Singleton
 class CoinsCacheRepositoryImpl @Inject constructor(
 	private val database: CoinsDatabase,
-	private val preferencesStorage: PreferencesStorage
+	private val preferences: PreferencesStorage
 ) : CoinsCacheRepository {
 
 	override val isCacheValid: Boolean
-		get() = now - preferencesStorage.lastCacheTime < TEN_DAYS
+		get() = now - lastCacheTime < TEN_DAYS
+
+	override var lastCacheTime: Long
+		get() = preferences.lastCacheTime
+		set(value) { preferences.lastCacheTime = value }
 
 	override suspend fun getCoins(): List<CoinData> = database.coinsDao().getCoins().toData()
 

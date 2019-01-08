@@ -13,6 +13,12 @@ interface CoinsCacheRepository {
 	 */
 	val isCacheValid: Boolean
 
+
+	/**
+	 * Last cache time in milliseconds
+	 */
+	var lastCacheTime: Long
+
 	/**
 	 * Fetch [List] of [CoinData] from cache
 	 *

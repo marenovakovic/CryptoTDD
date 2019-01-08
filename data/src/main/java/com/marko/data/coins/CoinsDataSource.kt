@@ -14,6 +14,11 @@ interface CoinsDataSource {
 	val isCacheValid: Boolean
 
 	/**
+	 * Last cache time in milliseconds
+	 */
+	var lastCacheTime: Long
+
+	/**
 	 * Fetch [CoinData]s
 	 *
 	 * @return [List] of fetched [CoinData]

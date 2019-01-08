@@ -28,6 +28,9 @@ abstract class BaseViewModel(
 	override val coroutineContext: CoroutineContext
 		get() = dispatchers.main + job
 
+	/**
+	 * Cancel the [job] because it's no longer needed
+	 */
 	override fun onCleared() {
 		super.onCleared()
 

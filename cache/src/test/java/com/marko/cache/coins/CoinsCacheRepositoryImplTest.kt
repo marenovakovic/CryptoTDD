@@ -1,8 +1,6 @@
 package com.marko.cache.coins
 
 import android.content.Context
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import com.marko.cache.factory.CoinsCacheFactory
 import com.marko.cache.mappers.toData
 import com.marko.domain.time.now

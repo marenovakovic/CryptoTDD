@@ -18,6 +18,10 @@ class CoinsCacheDataSource @Inject constructor(
 	override val isCacheValid: Boolean
 		get() = coinsCacheRepository.isCacheValid
 
+	override var lastCacheTime: Long
+		get() = coinsCacheRepository.lastCacheTime
+		set(value) { coinsCacheRepository.lastCacheTime = value }
+
 	override suspend fun getCoins(): List<CoinData> = coinsCacheRepository.getCoins()
 
 	override suspend fun getCoin(coinId: CoinId): CoinData =

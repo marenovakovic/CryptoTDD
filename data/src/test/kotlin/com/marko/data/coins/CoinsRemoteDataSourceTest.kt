@@ -2,6 +2,7 @@ package com.marko.data.coins
 
 import com.marko.data.entities.CoinData
 import com.marko.data.factory.CoinsDataFactory
+import com.marko.domain.time.now
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -61,6 +62,16 @@ internal class CoinsRemoteDataSourceTest {
 	@Test(expected = IllegalAccessException::class)
 	fun `is exception thrown when calling isCacheValid`() {
 		coinsRemoteDataSource.isCacheValid
+	}
+
+	@Test(expected = IllegalAccessException::class)
+	fun `is exception thrown when accessing lastCacheTime`() {
+		coinsRemoteDataSource.lastCacheTime
+	}
+
+	@Test(expected = IllegalAccessException::class)
+	fun `is exception thrown when setting lastCacheTime`() {
+		coinsRemoteDataSource.lastCacheTime = now
 	}
 
 	@Test(expected = IllegalAccessException::class)

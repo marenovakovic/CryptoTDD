@@ -18,9 +18,14 @@ class CoinsRemoteDataSource @Inject constructor(
 	override val isCacheValid: Boolean
 		get() = throw IllegalAccessException("CoinsRemoteDataSource doesn't work with cache")
 
+	override var lastCacheTime: Long
+		get() = throw IllegalAccessException("CoinsRemoteDataSource doesn't work with cache")
+		set(value) = throw IllegalAccessException("CoinsRemoteDataSource doesn't work with cache")
+
 	override suspend fun getCoins(): List<CoinData> = coinsRemoteRepository.getCoins()
 
-	override suspend fun getCoin(coinId: CoinId): CoinData = coinsRemoteRepository.getCoin(coinId = coinId)
+	override suspend fun getCoin(coinId: CoinId): CoinData =
+		coinsRemoteRepository.getCoin(coinId = coinId)
 
 	override suspend fun saveCoins(coins: List<CoinData>) =
 		throw IllegalAccessException("CoinsRemoteDataSource doesn't work with cache")

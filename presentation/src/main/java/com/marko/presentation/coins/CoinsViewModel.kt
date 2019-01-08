@@ -39,8 +39,7 @@ class CoinsViewModel @Inject constructor(
 	 */
 	private val actor = actorConsumeEach<CoinAction> { action ->
 		when (action) {
-			is FetchCoins ->
-				_result.safeWithContext(dispatchers.io) { getCoins().map { it.toPresentation() } }
+			is FetchCoins -> _result.safeWithContext(dispatchers.io) { getCoins().map { it.toPresentation() } }
 		}
 	}
 
